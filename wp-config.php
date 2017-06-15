@@ -26,7 +26,7 @@ define('DB_NAME', 'chapinometro');
 define('DB_USER', 'rodrigo');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'fnrY!/3{"7j.fK*!');
+define('DB_PASSWORD', 'fnrY!/3{7j.fK*!');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
