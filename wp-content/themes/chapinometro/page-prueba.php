@@ -23,7 +23,7 @@ $args = array(
                 $class="nivel_juego";
                 $imagen = get_post_meta($nivel->ID,'icono',TRUE);
                 var_dump($imagen);
-                $url_background=$imagen->url;
+                $url_background=wp_get_attachment_url($imagen);
             }
         }else{
             $texto = $preguntas_acertadas+'/10';
