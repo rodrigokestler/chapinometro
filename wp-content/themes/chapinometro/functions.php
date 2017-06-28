@@ -83,13 +83,14 @@ function get_niveles(){
 			}else{
 				$class="nivel_juego";
 				$imagen = get_post_meta($nivel->ID,'icono',TRUE);
-				$url_background=wp_get_attachment_url($imagen);
+				$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
+				$texto = '0/10';
 			}
 		}else{
 			$texto = $preguntas_acertadas+'/10';
 			$class="nivel_juego";
 			$imagen = get_post_meta($nivel->ID,'icono',TRUE);
-			$url_background=wp_get_attachment_url($imagen);
+			$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
 		}
 		if($contador==0){ ?>
 			<tr style="height:110px;">
@@ -98,7 +99,7 @@ function get_niveles(){
 		
                         
                             <td>
-                                <button data-nivelid="<?php echo $nivel->ID; ?>" style="background-image:url('<?php echo $url_background; ?>')"class="<?php echo $class;?>">
+                                <button data-nivelid="<?php echo $nivel->ID; ?>" style="<?php echo $url_background; ?>" class="<?php echo $class;?>">
                                 	<div class="texto_niveles font-morado">
                                 		<?php  echo $texto;?>
                                 	</div>
