@@ -135,28 +135,34 @@ function get_preguntas(){
 	);
 	$posts_array = get_posts($args);
 	foreach($posts_array as $pregunta){
-
+		$contador=0;
 		?>
 
-					<div class="pregunta" data-no="1">
+					<div class="pregunta" data-no="<?php echo $contador;?>" style="display:none;">
                         <div class="preguntaSection">
                             <div class="preguntaTexto"><?php echo $pregunta->pregunta;?></div>
                         </div>
                         <div class="respuestas">
                             <button class="respuestaTexto" data-opcion="respuesta1" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta1; ?>
                             </button>
-                            <button class="respuestaTexto" data-opcion="respuesta2"><?php echo $pregunta->respuesta2; ?>
+                            <button class="respuestaTexto" data-opcion="respuesta2" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta2; ?>
                             </button>
-                            <button class="respuestaTexto" data-opcion="respuesta3"><?php echo $pregunta->respuesta3; ?>
+                            <button class="respuestaTexto" data-opcion="respuesta3" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta3; ?>
                             </button>
-                            <button class="respuestaTexto" data-opcion="respuesta4"><?php echo $pregunta->respuesta4; ?>
+                            <button class="respuestaTexto" data-opcion="respuesta4" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta4; ?>
                             </button>
-							<button class="respuestaTexto" data-opcion="respuesta5"><?php echo $pregunta->respuesta5; ?>
+							<button class="respuestaTexto" data-opcion="respuesta5" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta5; ?>
                             </button>
                         </div>
                     </div>
 
 	<?php }
+
+	?>
+	<script>
+	juego.nombreNivel.html("<?php echo get_the_title($id_nivel);?>");
+	</script>
+	<?php
 
 die();
 }
