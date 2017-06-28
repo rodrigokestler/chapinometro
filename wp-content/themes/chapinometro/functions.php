@@ -49,7 +49,7 @@ function register_user(){
     if ( !$user_id and email_exists($_POST['user_email']) == false ) {
         $userid = wp_create_user( $_POST['user_email'], $_POST['user_pass1'], $_POST['user_email'] );
         $nombre = $_POST['user_name'];
-
+        wp_update_user( array( 'ID' => $userid, 'display_name' => $nombre ) );
         die(json_encode(array('success'=>'1')));
             
     } else {
@@ -121,3 +121,43 @@ function get_niveles(){
 	die();
 }
 add_action('wp_ajax_nopriv_get_niveles','get_niveles');
+
+function get_preguntas(){
+	$id_nivel = $_POST['id_nivel'];
+	$args = array(
+		'posts_per_page'   => 10,
+		'offset'           => 0,
+		'orderby'          => 'rand',
+		'post_type'        => 'pregunta',
+		'post_status'      => 'publish',
+		'meta_key'		   => 'nivel',
+		'meta_value'	   => $id_nivel
+	);
+	$posts_array = get_posts($args);
+	foreach($posts_array as $pregunta){
+
+		?>
+
+					<div class="pregunta" data-no="1">
+                        <div class="preguntaSection">
+                            <div class="preguntaTexto"><?php echo $pregunta->pregunta;?></div>
+                        </div>
+                        <div class="respuestas">
+                            <button class="respuestaTexto" data-opcion="respuesta1" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta1; ?>
+                            </button>
+                            <button class="respuestaTexto" data-opcion="respuesta2"><?php echo $pregunta->respuesta2; ?>
+                            </button>
+                            <button class="respuestaTexto" data-opcion="respuesta3"><?php echo $pregunta->respuesta3; ?>
+                            </button>
+                            <button class="respuestaTexto" data-opcion="respuesta4"><?php echo $pregunta->respuesta4; ?>
+                            </button>
+							<button class="respuestaTexto" data-opcion="respuesta5"><?php echo $pregunta->respuesta5; ?>
+                            </button>
+                        </div>
+                    </div>
+
+	<?php }
+
+die();
+}
+add_action('wp_ajax_nopriv_get_preguntas','get_preguntas');
