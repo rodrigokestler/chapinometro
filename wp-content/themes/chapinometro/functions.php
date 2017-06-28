@@ -59,7 +59,7 @@ function register_user(){
 add_action('wp_ajax_nopriv_register_user','register_user');
 
 function get_niveles(){
-	die('llego');
+
 	$args = array(
 		'posts_per_page'   => -1,
 		'offset'           => 0,
@@ -115,5 +115,6 @@ function get_niveles(){
 	?>
 	</table>
 	<?php
+	die();
 }
 add_action('wp_ajax_nopriv_get_niveles','get_niveles');
