@@ -98,7 +98,7 @@ function get_niveles(){
 		
                         
                             <td>
-                                <button data-nivelid="<?php echo $nivel->ID; ?>" style="background-image:('<?php echo $url_background; ?>')"class="<?php echo $class;?>">
+                                <button data-nivelid="<?php echo $nivel->ID; ?>" style="background-image:url('<?php echo $url_background; ?>')"class="<?php echo $class;?>">
                                 	<div class="texto_niveles font-morado">
                                 		<?php  echo $texto;?>
                                 	</div>
