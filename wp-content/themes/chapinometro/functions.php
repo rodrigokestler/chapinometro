@@ -64,7 +64,7 @@ function get_niveles(){
 		'posts_per_page'   => -1,
 		'offset'           => 0,
 		'orderby'          => 'title',
-		'order'            => 'DESC',
+		'order'            => 'ASC',
 		'post_type'        => 'nivel',
 		'post_status'      => 'publish',
 	);
@@ -82,6 +82,7 @@ function get_niveles(){
 				$class = "nivel_bloqueado";
 			}else{
 				$class="nivel_juego";
+				$url_background=$imagen->url;
 			}
 		}else{
 			$texto = $preguntas_acertadas+'/10';
