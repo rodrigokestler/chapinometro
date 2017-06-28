@@ -78,9 +78,9 @@ function get_niveles(){
 		if($preguntas_acertadas==''){
 			$texto = '';
 			if($nivel->post_title!='1'){
-				$class = "nivel_bloqueado"
+				$class = "nivel_bloqueado";
 			}else{
-				$class="nivel_juego"
+				$class="nivel_juego";
 			}
 		}else{
 			$texto = $preguntas_acertadas+'/10';
