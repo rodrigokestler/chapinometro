@@ -73,7 +73,7 @@ function get_niveles(){
 	?>
 	<table style="width:100%;text-align:center;">
 	<?php
-	foreach($pots_array as $nivel){
+	foreach($posts_array as $nivel){
 		$preguntas_acertadas = get_post_meta($nivel->ID,'preguntas_acertadas',TRUE);
 		$url_background="";
 		if($preguntas_acertadas==''){
