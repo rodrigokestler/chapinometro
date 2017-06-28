@@ -82,6 +82,7 @@ function get_niveles(){
 				$class = "nivel_bloqueado";
 			}else{
 				$class="nivel_juego";
+				$imagen = get_post_meta($nivel->ID,'icono',TRUE);
 				$url_background=$imagen->url;
 			}
 		}else{
