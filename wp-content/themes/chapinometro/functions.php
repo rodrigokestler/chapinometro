@@ -56,9 +56,9 @@ function register_user(){
         die(json_encode(array('msj_error'=>"El correo ingresado ya existe, intente de nuevo")));
     }
 }
-add_action('wp_ajax_nopriv_login','register_user');
+add_action('wp_ajax_nopriv_register_user','register_user');
 
 function get_niveles(){
 	die('todo bien');
 }
-add_action('wp_ajax_nopriv_login','get_niveles');
+add_action('wp_ajax_nopriv_get_niveles','get_niveles');
