@@ -83,13 +83,13 @@ function get_niveles(){
 			}else{
 				$class="nivel_juego";
 				$imagen = get_post_meta($nivel->ID,'icono',TRUE);
-				$url_background=$imagen->url;
+				$url_background=wp_get_attachment_url($imagen);
 			}
 		}else{
 			$texto = $preguntas_acertadas+'/10';
 			$class="nivel_juego";
 			$imagen = get_post_meta($nivel->ID,'icono',TRUE);
-			$url_background=$imagen->url;
+			$url_background=wp_get_attachment_url($imagen);
 		}
 		if($contador==0){ ?>
 			<tr style="height:110px;">
