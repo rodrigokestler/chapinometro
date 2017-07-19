@@ -138,7 +138,7 @@ function get_preguntas(){
 		$contador=0;
 		?>
 
-					<div class="pregunta" data-no="<?php echo $contador;?>" style="display:none;">
+					<div class="pregunta" data-no="<?php echo $contador;?>" style="display:none;d">
                         <div class="preguntaSection">
                             <div class="preguntaTexto"><?php echo $pregunta->pregunta;?></div>
                         </div>
@@ -160,7 +160,7 @@ function get_preguntas(){
 
 	?>
 	<script>
-	juego.nombreNivel.html("<?php echo get_the_title($id_nivel);?>");
+	juego.nombreNivel.html("<?php echo get_post_meta($id_nivel,'nombre',TRUE);?>");
 	</script>
 	<?php
 
