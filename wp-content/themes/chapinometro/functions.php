@@ -141,7 +141,7 @@ function get_preguntas(){
 
 					<div class="pregunta" data-no="<?php echo $contador;?>" style="display:none;d">
                         <div class="preguntaSection">
-                            <div class="preguntaTexto"><?php echo $pregunta->pregunta; var_dump($categories);?></div>
+                            <div class="preguntaTexto"><?php echo $pregunta->pregunta; echo $categories[0]->name;?></div>
                         </div>
                         <div class="respuestas">
                             <button class="respuestaTexto" data-opcion="respuesta1" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta1; ?>
