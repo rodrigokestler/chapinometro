@@ -136,11 +136,12 @@ function get_preguntas(){
 	$posts_array = get_posts($args);
 	foreach($posts_array as $pregunta){
 		$contador=0;
+		$categories = get_the_categories();
 		?>
 
 					<div class="pregunta" data-no="<?php echo $contador;?>" style="display:none;d">
                         <div class="preguntaSection">
-                            <div class="preguntaTexto"><?php echo $pregunta->pregunta;?></div>
+                            <div class="preguntaTexto"><?php echo $pregunta->pregunta; echo $categories[0];?></div>
                         </div>
                         <div class="respuestas">
                             <button class="respuestaTexto" data-opcion="respuesta1" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta1; ?>
