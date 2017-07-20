@@ -136,7 +136,7 @@ function get_preguntas(){
 	$posts_array = get_posts($args);
 	foreach($posts_array as $pregunta){
 		$contador=0;
-		$categories = get_the_category();
+		$categories = get_the_category($pregunta->ID);
 		?>
 
 					<div class="pregunta" data-no="<?php echo $contador;?>" style="display:none;d">
