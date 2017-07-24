@@ -137,6 +137,11 @@ function get_preguntas(){
 	foreach($posts_array as $pregunta){
 		$contador=0;
 		$categories = get_the_category($pregunta->ID);
+		if($categories[0]->name=='pregunta-texto'){
+
+		}else if($categories[0]->name=='pregunta-imagen'){
+			
+		}
 		?>
 
 					<div class="pregunta" data-no="<?php echo $contador;?>" style="display:none;d">
