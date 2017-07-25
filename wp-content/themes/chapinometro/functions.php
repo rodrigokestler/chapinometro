@@ -64,15 +64,16 @@ function fb_login(){
 	//user_login (fb_id)
 	//user_name
 	$user_email = $_POST['user_email'];
-	$user_id = username_exists( $_POST['user_login'] );
+	$user_login = $_POST['user_login'];
+	$user_id = username_exists( $user_login );
     
     if ( !$user_id  ) {
-        $userid = wp_create_user( $user_id, $user_id, $user_email );
+        $userid = wp_create_user( $user_login, $user_login, $user_email );
         $nombre = $_POST['user_name'];
         wp_update_user( array( 'ID' => $userid, 'display_name' => $nombre ) );   
         
     }
-    $user = get_user_by('login', $user_id); 
+    $user = get_user_by('login', $user_login); 
     die(json_encode($user));  
 
 }
