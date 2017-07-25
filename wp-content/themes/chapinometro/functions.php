@@ -63,7 +63,6 @@ function fb_login(){
 	//user_pass (fb_id)
 	//user_login (fb_id)
 	//user_name
-	die('llegoFbLogin');
 	$user_email = $_POST['user_email'];
 	$user_login = $_POST['user_login'];
 	$user_id = username_exists( $user_login );
