@@ -39,6 +39,7 @@ function login(){
         echo json_encode(array('msj_error'=>'La contraseña es incorrecta.'));    
         die();
     } 
+    $user->vidas = get_user_data($user->ID,'vidas',TRUE);
     die(json_encode($user));   
 }
 
@@ -50,6 +51,7 @@ function register_user(){
         $userid = wp_create_user( $_POST['user_email'], $_POST['user_pass1'], $_POST['user_email'] );
         $nombre = $_POST['user_name'];
         wp_update_user( array( 'ID' => $userid, 'display_name' => $nombre ) );
+        update_user_meta($userid,'vidas',5);
         die(json_encode(array('success'=>'1')));
             
     } else {
@@ -71,15 +73,30 @@ function fb_login(){
         $userid = wp_create_user( $user_login, $user_login, $user_email );
         $nombre = $_POST['user_name'];
         wp_update_user( array( 'ID' => $userid, 'display_name' => $nombre ) );   
+        update_user_meta($userid,'vidas',5);
         
     }
+    $user->vidas = get_user_meta($user->ID,'vidas',TRUE);
     $user = get_user_by('login', $user_login); 
     die(json_encode($user));  
 
 }
 add_action('wp_ajax_nopriv_fb_login','fb_login');
-function get_niveles(){
+function send_vidas(){
+	$user = check_user();
+	update_user_meta($user->ID,'vidas',$_POST['vidas']);
+}
+add_action('wp_ajax_nopriv_send_vidas','send_vidas');
+function send_resultado(){
+	$user = check_user();
+	$id_nivel = $_POST['id_nivel'];
+	$respuestas = $_POST['respuestas'];
+	update_user_meta($user->ID,$id_nivel.'preguntas_acertadas',$respuestas);
 
+}
+add_action('wp_ajax_nopriv_send_resultado','send_resultado');
+function get_niveles(){
+	$user = check_user();
 	$args = array(
 		'posts_per_page'   => -1,
 		'offset'           => 0,
@@ -94,7 +111,7 @@ function get_niveles(){
 	<table style="width:100%;text-align:center;">
 	<?php
 	foreach($posts_array as $nivel){
-		$preguntas_acertadas = get_post_meta($nivel->ID,'preguntas_acertadas',TRUE);
+		$preguntas_acertadas = get_user_meta($user->ID,$nivel->ID.'preguntas_acertadas',TRUE);
 		$url_background="";
 		if($preguntas_acertadas==''){
 			$texto = '';
