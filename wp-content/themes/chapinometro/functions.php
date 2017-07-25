@@ -70,8 +70,7 @@ function fb_login(){
         $userid = wp_create_user( $user_id, $user_id, $user_email );
         $nombre = $_POST['user_name'];
         wp_update_user( array( 'ID' => $userid, 'display_name' => $nombre ) );   
-        $user = get_user_by('login', $userid); 
-    	die(json_encode($user));
+        
     }
     $user = get_user_by('login', $user_id); 
     die(json_encode($user));  
