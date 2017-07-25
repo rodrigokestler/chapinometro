@@ -58,6 +58,25 @@ function register_user(){
 }
 add_action('wp_ajax_nopriv_register_user','register_user');
 
+function fb_login(){
+	//user_email
+	//user_pass (fb_id)
+	//user_login (fb_id)
+	//user_name
+	$user_email = $_POST['user_email'];
+	$user_id = username_exists( $_POST['user_login'] );
+    
+    if ( !$user_id  ) {
+        $userid = wp_create_user( $user_id, $user_id, $user_email );
+        $nombre = $_POST['user_name'];
+        wp_update_user( array( 'ID' => $userid, 'display_name' => $nombre ) );   
+        die();
+    }
+    $user = get_user_by('login', $user_id); 
+    die(json_encode($user));  
+
+}
+add_action('wp_ajax_nopriv_fb_login','fb_login');
 function get_niveles(){
 
 	$args = array(
@@ -134,13 +153,14 @@ function get_preguntas(){
 		'meta_value'	   => $id_nivel
 	);
 	$posts_array = get_posts($args);
+	$imagenes = [];
 	foreach($posts_array as $pregunta){
-		$contador=0;
+		
 		$categories = get_the_category($pregunta->ID);
 		if($categories[0]->name=='pregunta-texto'){
 
 		}else if($categories[0]->name=='pregunta-imagen'){
-			
+			$imagenes++;
 		}
 		?>
 
