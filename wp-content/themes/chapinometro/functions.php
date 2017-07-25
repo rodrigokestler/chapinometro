@@ -39,7 +39,7 @@ function login(){
         echo json_encode(array('msj_error'=>'La contraseña es incorrecta.'));    
         die();
     } 
-    //$user->vidas = get_user_data($user->ID,'vidas',TRUE);
+    $user->vidas = get_user_meta($user->ID,'vidas',TRUE);
     die(json_encode($user));   
 }
 
