@@ -114,11 +114,12 @@ function get_niveles(){
 	<table style="width:100%;text-align:center;">
 	<?php
 	foreach($posts_array as $nivel){
+		$habilitar_siguiente = false;
 		$preguntas_acertadas = get_user_meta($user->ID,$nivel->ID.'preguntas_acertadas',TRUE);
 		$url_background="";
 		if($preguntas_acertadas==''){
 			$texto = '';
-			if($nivel->post_title!='1'){
+			if($nivel->post_title!='1' && $habilitar_siguiente!=true){
 				$class = "nivel_bloqueado";
 			}else{
 				$class="nivel_juego";
@@ -127,6 +128,7 @@ function get_niveles(){
 				$texto = '0/10';
 			}
 		}else{
+			$habilitar_siguiente = true;
 			$texto = $preguntas_acertadas.'/10';
 			$class="nivel_juego";
 			$imagen = get_post_meta($nivel->ID,'icono',TRUE);
