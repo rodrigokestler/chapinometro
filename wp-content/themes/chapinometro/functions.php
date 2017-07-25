@@ -127,7 +127,7 @@ function get_niveles(){
 				$texto = '0/10';
 			}
 		}else{
-			$texto = $preguntas_acertadas+'/10';
+			$texto = $preguntas_acertadas.'/10';
 			$class="nivel_juego";
 			$imagen = get_post_meta($nivel->ID,'icono',TRUE);
 			$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
