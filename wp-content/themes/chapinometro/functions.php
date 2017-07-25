@@ -39,7 +39,7 @@ function login(){
         echo json_encode(array('msj_error'=>'La contraseña es incorrecta.'));    
         die();
     } 
-    $user->vidas = get_user_data($user->ID,'vidas',TRUE);
+    //$user->vidas = get_user_data($user->ID,'vidas',TRUE);
     die(json_encode($user));   
 }
 
@@ -88,6 +88,7 @@ function send_vidas(){
 	die('1');
 }
 add_action('wp_ajax_nopriv_send_vidas','send_vidas');
+
 function send_resultado(){
 	$user = check_user();
 	$id_nivel = $_POST['id_nivel'];
