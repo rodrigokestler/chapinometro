@@ -113,13 +113,15 @@ function get_niveles(){
 	?>
 	<table style="width:100%;text-align:center;">
 	<?php
+	$habilitar_siguiente = false;
 	foreach($posts_array as $nivel){
-		$habilitar_siguiente = false;
+		
 		$preguntas_acertadas = get_user_meta($user->ID,$nivel->ID.'preguntas_acertadas',TRUE);
 		$url_background="";
 		if($preguntas_acertadas==''){
+
 			$texto = '';
-			if($nivel->post_title!='1' && $habilitar_siguiente!=true){
+			if($nivel->post_title!='1' && $habilitar_siguiente==false){
 				$class = "nivel_bloqueado";
 			}else{
 				$class="nivel_juego";
@@ -127,6 +129,7 @@ function get_niveles(){
 				$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
 				$texto = '0/10';
 			}
+			$habilitar_siguiente = false;
 		}else{
 			$habilitar_siguiente = true;
 			$texto = $preguntas_acertadas.'/10';
