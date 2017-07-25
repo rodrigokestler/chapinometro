@@ -85,6 +85,7 @@ add_action('wp_ajax_nopriv_fb_login','fb_login');
 function send_vidas(){
 	$user = check_user();
 	update_user_meta($user->ID,'vidas',$_POST['vidas']);
+	die('1')
 }
 add_action('wp_ajax_nopriv_send_vidas','send_vidas');
 function send_resultado(){
@@ -92,6 +93,7 @@ function send_resultado(){
 	$id_nivel = $_POST['id_nivel'];
 	$respuestas = $_POST['respuestas'];
 	update_user_meta($user->ID,$id_nivel.'preguntas_acertadas',$respuestas);
+	die('1');
 
 }
 add_action('wp_ajax_nopriv_send_resultado','send_resultado');
