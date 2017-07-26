@@ -121,7 +121,7 @@ function get_niveles(){
 		if($preguntas_acertadas==''){
 
 			$texto = '';
-			if($nivel->post_title!='1' && $habilitar_siguiente==false){
+			if($nivel->post_title!='1' && $habilitar_siguiente==false ){
 				$class = "nivel_bloqueado";
 			}else{
 				$class="nivel_juego";
@@ -131,7 +131,10 @@ function get_niveles(){
 			}
 			$habilitar_siguiente = false;
 		}else{
-			$habilitar_siguiente = true;
+			if($preguntas_acertadas>=7){
+				$habilitar_siguiente = true;
+			}
+			
 			$texto = $preguntas_acertadas.'/10';
 			$class="nivel_juego";
 			$imagen = get_post_meta($nivel->ID,'icono',TRUE);
