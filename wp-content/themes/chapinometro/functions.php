@@ -126,8 +126,6 @@ function send_resultado(){
 	$respuestas = $_POST['respuestas'];
 	if($respuestas >= 7){
 		update_user_meta($user->ID,'nivel-'.$id_nivel,'completado');
-	}else{
-		update_user_meta($user->ID,'nivel-'.$id_nivel,'no completado');
 	}
 	update_user_meta($user->ID,$id_nivel.'preguntas_acertadas',$respuestas);
 	die('1');
@@ -153,6 +151,7 @@ function get_niveles(){
 	foreach($posts_array as $nivel){
 		
 		$preguntas_acertadas = get_user_meta($user->ID,$nivel->ID.'preguntas_acertadas',TRUE);
+		$completado = get_user_meta($user->ID,'nivel-'.$nivel->ID,TRUE);
 		$url_background="";
 		if($preguntas_acertadas==''){
 
@@ -167,7 +166,7 @@ function get_niveles(){
 			}
 			$habilitar_siguiente = false;
 		}else{
-			if($preguntas_acertadas>=7){
+			if($completado == 'completado'){
 				$habilitar_siguiente = true;
 			}
 			
