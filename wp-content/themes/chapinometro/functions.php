@@ -21,11 +21,27 @@ add_filter( 'manage_edit-pregunta_columns', 'pregunta_columns' ) ;
 function my_manage_pregunta_columns( $column, $post_id ) {
     global $post;
     if($column = 'nivel'){
-    	var_dump( get_post_meta($post_id,'nivel',TRUE));
+    	$nivel =  get_post_meta($post_id,'nivel',TRUE);
+    	echo get_the_title($nivel)." - ".get_post_meta($nivel,'nombre',TRUE);
     }
 }
 add_action( 'manage_pregunta_posts_custom_column', 'my_manage_pregunta_columns', 10, 2 );
+function nivel_columns( $columns ) {
 
+	$columns['nombre'] = 'Nombre';
+
+	return $columns;
+}
+add_filter( 'manage_edit-nivel_columns', 'nivel_columns' ) ;
+
+function my_manage_nivel_columns( $column, $post_id ) {
+    global $post;
+    if($column = 'nombre'){
+    	
+    	echo get_post_meta($post_id,'nombre',TRUE);
+    }
+}
+add_action( 'manage_nivel_posts_custom_column', 'my_manage_nivel_columns', 10, 2 );
 function check_user(){
     $user_email = $_POST['user_email'];//$_POST['user_email'];
     $user_pass = $_POST['user_pass'];//$_POST['user_pass'];    
