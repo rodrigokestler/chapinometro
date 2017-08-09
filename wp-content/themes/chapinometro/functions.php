@@ -218,6 +218,8 @@ function get_preguntas(){
 	);
 	$posts_array = get_posts($args);
 	$tiempo = get_post_meta($id_nivel,'tiempo',TRUE);
+	$socialsharing = get_post_meta($id_nivel,'socialsharing',TRUE);
+	$imgSocial = wp_get_attachment_url($socialsharing);
 	$imagenes = [];
 	foreach($posts_array as $pregunta){
 		
@@ -255,6 +257,7 @@ function get_preguntas(){
 	<script>
 	juego.nombreNivel.html("<?php echo get_post_meta($id_nivel,'nombre',TRUE);?>");
 	juego.tiempo_restante = <?php echo $tiempo;?>;
+	$('#socialSharingBtn').data('link','<?php echo $imgSocial;?>');
 	</script>
 	<?php
 
