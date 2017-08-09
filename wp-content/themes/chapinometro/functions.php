@@ -217,6 +217,7 @@ function get_preguntas(){
 		'meta_value'	   => $id_nivel
 	);
 	$posts_array = get_posts($args);
+	$tiempo = get_post_meta($id_nivel,'tiempo',TRUE);
 	$imagenes = [];
 	foreach($posts_array as $pregunta){
 		
@@ -253,6 +254,7 @@ function get_preguntas(){
 	?>
 	<script>
 	juego.nombreNivel.html("<?php echo get_post_meta($id_nivel,'nombre',TRUE);?>");
+	juego.tiempo_restante = <?php echo $tiempo;?>;
 	</script>
 	<?php
 
