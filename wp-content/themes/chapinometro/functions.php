@@ -10,6 +10,21 @@ function chapinometro_scripts() {
 	
 }
 add_action( 'wp_enqueue_scripts', 'chapinometro_scripts' );
+function pregunta_columns( $columns ) {
+
+	$columns['nivel'] = 'Nivel';
+
+	return $columns;
+}
+add_filter( 'manage_edit-pregunta_columns', 'pregunta_columns' ) ;
+
+function my_manage_pregunta_columns( $column, $post_id ) {
+    global $post;
+    if($column = 'nivel'){
+    	var_dump( get_post_meta($post_id,'nivel',TRUE));
+    }
+}
+add_action( 'manage_pregunta_posts_custom_column', 'my_manage_pregunta_columns', 10, 2 );
 
 function check_user(){
     $user_email = $_POST['user_email'];//$_POST['user_email'];
@@ -195,7 +210,7 @@ function get_preguntas(){
 
 					<div class="pregunta" data-no="<?php echo $contador;?>" style="display:none;d">
                         <div class="preguntaSection">
-                            <div class="preguntaTexto"><?php echo $pregunta->pregunta; echo $categories[0]->name;?></div>
+                            <div class="preguntaTexto"><?php echo $pregunta->pregunta;?></div>
                         </div>
                         <div class="respuestas">
                             <button class="respuestaTexto" data-opcion="respuesta1" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta1; ?>
