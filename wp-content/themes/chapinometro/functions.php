@@ -124,6 +124,11 @@ function send_resultado(){
 	$user = check_user();
 	$id_nivel = $_POST['id_nivel'];
 	$respuestas = $_POST['respuestas'];
+	if($respuestas >= 7){
+		update_user_meta($user->ID,'nivel-'.$id_nivel,'completado');
+	}else{
+		update_user_meta($user->ID,'nivel-'.$id_nivel,'no completado');
+	}
 	update_user_meta($user->ID,$id_nivel.'preguntas_acertadas',$respuestas);
 	die('1');
 
@@ -225,6 +230,8 @@ function get_preguntas(){
 		?>
 
 					<div class="pregunta" data-no="<?php echo $contador;?>" style="display:none;d">
+						<div class="flecha-arriba"></div>
+                    	<div class="flecha-abajo"></div>
                         <div class="preguntaSection">
                             <div class="preguntaTexto"><?php echo $pregunta->pregunta;?></div>
                         </div>
