@@ -244,7 +244,7 @@ function get_preguntas(){
                         	<?php }else{ ?>
                         			<div class="preguntaImagen"><img src="<?php echo wp_get_attachment_url(get_post_meta($pregunta->ID,'pregunta',TRUE));?>" ></div>
                         		<?php } ?>
-                        	?>
+                        
                             
                             
                         </div>
