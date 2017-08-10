@@ -239,7 +239,7 @@ function get_preguntas(){
                     	<div class="flecha-abajo"></div>
                         <div class="preguntaSection">
                         	<?php 
-                        		if($categories[0]->name == 'pregunta-imagen'){ ?>
+                        		if($categories[0]->name == 'pregunta-texto'){ ?>
                         			<div class="preguntaTexto"><?php echo $pregunta->pregunta;?></div>
                         	<?php }else{ ?>
                         			<div class="preguntaImagen"><img src="<?php echo wp_get_attachment_url(get_post_meta($pregunta->ID,'pregunta',TRUE));?>" ></div>
