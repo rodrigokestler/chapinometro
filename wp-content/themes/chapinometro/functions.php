@@ -235,7 +235,7 @@ function get_preguntas(){
 						<div class="flecha-arriba"></div>
                     	<div class="flecha-abajo"></div>
                         <div class="preguntaSection">
-                            <!--<div class="preguntaTexto"><?php echo //$pregunta->pregunta;?></div>-->
+                            <!--<div class="preguntaTexto"><?php //echo $pregunta->pregunta;?></div>-->
                             <div class="preguntaImagen"><img src="http://104.207.144.122/proyectos/chapinometro/wp-content/uploads/2017/07/Tamal_de_Elote.jpg" style="width:100%;height:auto"></div>
                         </div>
                         <div class="respuestas">
@@ -258,7 +258,7 @@ function get_preguntas(){
 	<script>
 	juego.nombreNivel.html("<?php echo get_post_meta($id_nivel,'nombre',TRUE);?>");
 	juego.tiempo_restante = <?php echo 500;//$tiempo;?>;
-	$('#socialSharingBtn').data('link','<?php echo $imgSocial;?>');
+	$('#socialSharingBtn').data('link',"<?php echo $imgSocial;?>");
 	</script>
 	<?php
 
