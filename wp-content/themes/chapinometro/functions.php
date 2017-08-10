@@ -221,6 +221,9 @@ function get_preguntas(){
 	$socialsharing = get_post_meta($id_nivel,'socialsharing',TRUE);
 	$imgSocial = wp_get_attachment_url($socialsharing);
 	$imagenes = [];
+	?>
+
+	<?php
 	foreach($posts_array as $pregunta){
 		
 		$categories = get_the_category($pregunta->ID);
@@ -235,8 +238,15 @@ function get_preguntas(){
 						<div class="flecha-arriba"></div>
                     	<div class="flecha-abajo"></div>
                         <div class="preguntaSection">
-                            <!--<div class="preguntaTexto"><?php //echo $pregunta->pregunta;?></div>-->
-                            <div class="preguntaImagen"><img src="http://104.207.144.122/proyectos/chapinometro/wp-content/uploads/2017/07/Tamal_de_Elote.jpg" style="width:100%;height:auto"></div>
+                        	<?php 
+                        		if($categories[0]->name == 'pregunta-imagen'){ ?>
+                        			<div class="preguntaTexto"><?php echo $pregunta->pregunta;?></div>
+                        	<?php }else{ ?>
+                        			<div class="preguntaImagen"><img src="<?php echo wp_get_attachment_url(get_post_meta($pregunta->ID,'pregunta',TRUE));?>" ></div>
+                        		<?php } ?>
+                        	?>
+                            
+                            
                         </div>
                         <div class="respuestas">
                             <button class="respuestaTexto" data-opcion="respuesta1" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta1; ?>
@@ -257,7 +267,7 @@ function get_preguntas(){
 	?>
 	<script>
 	juego.nombreNivel.html("<?php echo get_post_meta($id_nivel,'nombre',TRUE);?>");
-	juego.tiempo_restante = <?php echo 500;//$tiempo;?>;
+	juego.tiempo_restante = <?php echo $tiempo;?>;
 	$('#socialSharingBtn').data('link',"<?php echo $imgSocial;?>");
 	</script>
 	<?php
