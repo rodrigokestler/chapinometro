@@ -112,8 +112,14 @@ function fb_login(){
     }
     
     $user = get_user_by('login', $user_login); 
-    $user->vidas = get_user_meta($user->ID,'vidas',TRUE);
-    die(json_encode($user));  
+    if($user != false){
+    	$user->vidas = get_user_meta($user->ID,'vidas',TRUE);
+   	 	wp_update_user(array('ID'=>($user->ID),'user_email' => $user_email);
+    	die(json_encode($user));  
+    }else{
+    	die(json_encode(array('msj_error'=>"Hubo un error ingresando con Facebook. Por favor intenta de nuevo")));
+    }
+    
 
 }
 add_action('wp_ajax_nopriv_fb_login','fb_login');
