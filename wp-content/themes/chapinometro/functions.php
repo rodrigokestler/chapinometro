@@ -112,6 +112,7 @@ function fb_login(){
     }
     
     $user = get_user_by('login', $user_login); 
+    
     if($user != false){
     	$user->vidas = get_user_meta($user->ID,'vidas',TRUE);
    	 	wp_update_user(array('ID'=>($user->ID),'user_email' => $user_email);
