@@ -277,9 +277,9 @@ function get_preguntas(){
 			for($i =0 ; $i < $imagenes; $i++){
 				?>
 					console.log("new image src <?php echo $sources[$i];?>");
-					juego.images[i] = new Image();
-					juego.images[i].src = '<?php echo $sources[$i];?>';
-					juego.images[i].onload = function(){
+					juego.images[<?php echo $i;?>] = new Image();
+					juego.images[<?php echo $i;?>].src = '<?php echo $sources[$i];?>';
+					juego.images[<?php echo $i;?>].onload = function(){
 						console.log('image loaded');
 			        	juego.imagesLoaded++;
 				        if(juego.imagesLoaded == juego.imageCount){
