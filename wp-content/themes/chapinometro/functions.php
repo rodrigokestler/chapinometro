@@ -141,7 +141,7 @@ function get_niveles(){
 		'posts_per_page'   => -1,
 		'offset'           => 0,
 		'orderby'          => 'meta_value_num',
-		'meta_key'		   => 'nivel',
+		'meta_key'		   => 'numero_nivel',
 		'order'            => 'ASC',
 		'post_type'        => 'nivel',
 		'post_status'      => 'publish',
