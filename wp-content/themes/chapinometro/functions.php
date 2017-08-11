@@ -110,8 +110,9 @@ function fb_login(){
         update_user_meta($userid,'vidas',5);
         
     }
-    $user->vidas = get_user_meta($user->ID,'vidas',TRUE);
+    
     $user = get_user_by('login', $user_login); 
+    $user->vidas = get_user_meta($user->ID,'vidas',TRUE);
     die(json_encode($user));  
 
 }
