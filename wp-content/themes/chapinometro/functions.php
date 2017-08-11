@@ -283,7 +283,7 @@ function get_preguntas(){
 						console.log('image loaded');
 			        	juego.imagesLoaded++;
 				        if(juego.imagesLoaded == juego.imageCount){
-				            juego.comenzarJuego(sonido);
+				            juego.comenzarJuego(juego.sonido);
 				        }
 			    	};
 				<?php
@@ -291,7 +291,7 @@ function get_preguntas(){
 		
 		}else{
 			?>
-			juego.comenzarJuego(sonido);
+			juego.comenzarJuego(juego.sonido);
 			<?php
 		}
 	?>
