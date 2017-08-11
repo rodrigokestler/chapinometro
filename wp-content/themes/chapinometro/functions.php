@@ -271,7 +271,7 @@ function get_preguntas(){
 	juego.nombreNivel.html("<?php echo get_post_meta($id_nivel,'nombre',TRUE);?>");
 	juego.tiempo_restante = <?php echo $tiempo;?>;
 	$('#socialSharingBtn').data('link',"<?php echo $imgSocial;?>");
-
+	juego.imageCount = <?php echo $imagenes ?>;
 	<?php 
 		if($imagenes >0){
 			for($i =0 ; $i < $imagenes; $i++){
