@@ -29,6 +29,7 @@ add_action( 'manage_pregunta_posts_custom_column', 'my_manage_pregunta_columns',
 function nivel_columns( $columns ) {
 
 	$columns['nombre'] = 'Nombre';
+	$columns['nivel'] = 'Nivel';
 
 	return $columns;
 }
@@ -39,6 +40,8 @@ function my_manage_nivel_columns( $column, $post_id ) {
     if($column = 'nombre'){
     	
     	echo get_post_meta($post_id,'nombre',TRUE);
+    }else if($column = 'nivel'){
+    	echo get_post_meta($post_id,'nivel',TRUE);
     }
 }
 add_action( 'manage_nivel_posts_custom_column', 'my_manage_nivel_columns', 10, 2 );
@@ -137,7 +140,8 @@ function get_niveles(){
 	$args = array(
 		'posts_per_page'   => -1,
 		'offset'           => 0,
-		'orderby'          => 'title',
+		'orderby'          => 'meta_value_num',
+		'meta_key'		   => 'nivel',
 		'order'            => 'ASC',
 		'post_type'        => 'nivel',
 		'post_status'      => 'publish',
