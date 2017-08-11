@@ -220,7 +220,8 @@ function get_preguntas(){
 	$tiempo = get_post_meta($id_nivel,'tiempo',TRUE);
 	$socialsharing = get_post_meta($id_nivel,'socialsharing',TRUE);
 	$imgSocial = wp_get_attachment_url($socialsharing);
-	$imagenes = [];
+	$imagenes = 0;
+	$sources = [];
 	?>
 
 	<?php
@@ -231,6 +232,7 @@ function get_preguntas(){
 
 		}else if($categories[0]->name=='pregunta-imagen'){
 			$imagenes++;
+			array_push($sources,wp_get_attachment_url(get_post_meta($pregunta->ID,'pregunta',TRUE)));
 		}
 		?>
 
@@ -269,6 +271,32 @@ function get_preguntas(){
 	juego.nombreNivel.html("<?php echo get_post_meta($id_nivel,'nombre',TRUE);?>");
 	juego.tiempo_restante = <?php echo $tiempo;?>;
 	$('#socialSharingBtn').data('link',"<?php echo $imgSocial;?>");
+
+	<?php 
+		if($imagenes >0){
+			for($i =0 ; $i < $imagenes; $i++){
+				?>
+					console.log("new image src <?php echo $sources[$i];?>");
+					juego.images[i] = new Image();
+					juego.images[i].src = '<?php echo $sources[$i];?>';
+					juego.images[i].onload = function(){
+						console.log('image loaded');
+			        	juego.imagesLoaded++;
+				        if(juego.imagesLoaded == juego.imageCount){
+				            juego.comenzarJuego(sonido);
+				        }
+			    	};
+				<?php
+			}
+		
+		}else{
+			?>
+			juego.comenzarJuego(sonido);
+			<?php
+		}
+	?>
+	
+	
 	</script>
 	<?php
 
