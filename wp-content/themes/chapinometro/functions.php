@@ -20,7 +20,7 @@ add_filter( 'manage_edit-pregunta_columns', 'pregunta_columns' ) ;
 
 function my_manage_pregunta_columns( $column, $post_id ) {
     global $post;
-    if($column = 'nivel'){
+    if($column == 'nivel'){
     	$nivel =  get_post_meta($post_id,'nivel',TRUE);
     	echo get_the_title($nivel)." - ".get_post_meta($nivel,'nombre',TRUE);
     }
@@ -37,11 +37,11 @@ add_filter( 'manage_edit-nivel_columns', 'nivel_columns' ) ;
 
 function my_manage_nivel_columns( $column, $post_id ) {
     global $post;
-    if($column = 'nombre'){
+    if($column == 'nombre'){
     	
     	echo get_post_meta($post_id,'nombre',TRUE);
-    }else if($column = 'nivel'){
-    	echo get_post_meta($post_id,'nivel',TRUE);
+    }else if($column == 'nivel'){
+    	echo get_post_meta($post_id,'numero_nivel',TRUE);
     }
 }
 add_action( 'manage_nivel_posts_custom_column', 'my_manage_nivel_columns', 10, 2 );
