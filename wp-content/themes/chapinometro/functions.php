@@ -163,12 +163,13 @@ function get_niveles(){
 	foreach($posts_array as $nivel){
 		
 		$preguntas_acertadas = get_user_meta($user->ID,$nivel->ID.'preguntas_acertadas',TRUE);
+		$numero_nivel = get_post_meta($nivel->ID,'numero_nivel',TRUE);
 		$completado = get_user_meta($user->ID,'nivel-'.$nivel->ID,TRUE);
 		$url_background="";
 		if($preguntas_acertadas==''){
 
 			$texto = '';
-			if($nivel->post_title!='1' && $habilitar_siguiente==false ){
+			if($numero_nivel !='1' && $habilitar_siguiente==false ){
 				$class = "nivel_bloqueado";
 			}else{
 				$class="nivel_juego";
