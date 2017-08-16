@@ -164,9 +164,9 @@ function get_niveles(){
 	?>
 	<table style="width:100%;text-align:center;">
 	<?php
-	
+	$habilitar_siguiente = false;
 	foreach($posts_array as $nivel){
-		$habilitar_siguiente = false;
+		
 		$preguntas_acertadas = get_user_meta($user->ID,$nivel->ID.'preguntas_acertadas',TRUE);
 		$numero_nivel = get_post_meta($nivel->ID,'numero_nivel',TRUE);
 		$completado = get_user_meta($user->ID,'nivel-'.$nivel->ID,TRUE);
@@ -235,6 +235,7 @@ function get_niveles(){
                        
          
         <?php
+        	$habilitar_siguiente = false;
         	$contador++;
         if($contador==3){ ?>
         	 </tr>
