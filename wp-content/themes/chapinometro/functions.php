@@ -217,11 +217,14 @@ function get_niveles(){
 		if($contador==0){ ?>
 			<tr style="height:110px;">
 		<?php }
-			$hs = $habilitar_siguiente ? '1' : '0';
-			$info = array('id nivel'=>$nivel->ID,'preguntas acertadas'=>$preguntas_acertadas,
-							'completado' => $completado, 'habilitar siguiente' => $hs
-				);
-			print_t($info);
+			if($user->ID == 1){
+				$hs = $habilitar_siguiente ? '1' : '0';
+				$info = array('id nivel'=>$nivel->ID,'preguntas acertadas'=>$preguntas_acertadas,
+								'completado' => $completado, 'habilitar siguiente' => $hs
+					);
+				print_t($info);
+			}
+			
 
 		?>
 		
@@ -229,7 +232,7 @@ function get_niveles(){
                             <td>
                                 <button data-nivelid="<?php echo $nivel->ID; ?>" style="<?php echo $url_background; ?>" class="nivelBtn <?php echo $class;?>">
                                 	<div class="texto_niveles font-morado">
-                                		<?php  echo $texto;?>
+                                		<?php  echo $texto; ?>
                                 	</div>
                                 </button>
                             </td>
@@ -297,15 +300,15 @@ function get_preguntas(){
                             
                         </div>
                         <div class="respuestas">
-                            <button class="respuestaTexto" data-opcion="respuesta1" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta1; ?>
+                            <button class="respuestaTexto" data-opcion="respuesta1" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta1; echo $pregunta->respuesta_correcta == 'respuesta1' && ($user->ID == 1 || $user->ID == 4) ? ' correcta' : '';?>
                             </button>
-                            <button class="respuestaTexto" data-opcion="respuesta2" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta2; ?>
+                            <button class="respuestaTexto" data-opcion="respuesta2" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta2; echo $pregunta->respuesta_correcta == 'respuesta2' && ($user->ID == 1 || $user->ID == 4) ? ' correcta' : ''; ?>
                             </button>
-                            <button class="respuestaTexto" data-opcion="respuesta3" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta3; ?>
+                            <button class="respuestaTexto" data-opcion="respuesta3" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta3; echo $pregunta->respuesta_correcta == 'respuesta3' && ($user->ID == 1 || $user->ID == 4) ? ' correcta' : ''; ?>
                             </button>
-                            <button class="respuestaTexto" data-opcion="respuesta4" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta4; ?>
+                            <button class="respuestaTexto" data-opcion="respuesta4" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta4; echo $pregunta->respuesta_correcta == 'respuesta4' && ($user->ID == 1 || $user->ID == 4) ? ' correcta' : '';?>
                             </button>
-							<button class="respuestaTexto" data-opcion="respuesta5" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta5; ?>
+							<button class="respuestaTexto" data-opcion="respuesta5" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta5; echo $pregunta->respuesta_correcta == 'respuesta5' && ($user->ID == 1 || $user->ID == 4) ? ' correcta' : '';?>
                             </button>
                         </div>
                     </div>
