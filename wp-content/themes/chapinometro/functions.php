@@ -198,7 +198,7 @@ function get_niveles(){
 		<?php }
 			$hs = $habilitar_siguiente ? '1' : '0';
 			$info = array('id nivel'=>$nivel->ID,'preguntas acertadas'=>$preguntas_acertadas,
-							'completado' => $completado, 'habilitar siguiente' => hs
+							'completado' => $completado, 'habilitar siguiente' => $hs
 				);
 			print_t($info);
 
