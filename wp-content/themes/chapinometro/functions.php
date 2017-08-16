@@ -179,11 +179,12 @@ function get_niveles(){
 			$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
 		}else{
 
-			if($numero_nivel == '1'){
+			if($numero_nivel == '1' || $habilitar_siguiente == true){
 				$class="nivel_juego";
 				$imagen = get_post_meta($nivel->ID,'icono',TRUE);
 				$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
 				$texto = $preguntas_acertadas != '' ? $preguntas_acertadas.'/10' : '0/10';
+				$habilitar_siguiente = false;
 			}else if($habilitar_siguiente == false){
 				$class = "nivel_bloqueado";
 				$texto = "";
@@ -235,7 +236,7 @@ function get_niveles(){
                        
          
         <?php
-        	$habilitar_siguiente = false;
+        	
         	$contador++;
         if($contador==3){ ?>
         	 </tr>
