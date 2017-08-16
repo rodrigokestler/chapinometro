@@ -143,6 +143,11 @@ function send_resultado(){
 
 }
 add_action('wp_ajax_nopriv_send_resultado','send_resultado');
+function print_t($f){
+    echo "<pre>";
+    print_r($f);
+    echo "</pre>";
+}
 function get_niveles(){
 	$user = check_user();
 	$args = array(
@@ -191,6 +196,12 @@ function get_niveles(){
 		if($contador==0){ ?>
 			<tr style="height:110px;">
 		<?php }
+
+			$info = array('id nivel'=>$nivel->ID,'preguntas acertadas'=>$preguntas_acertadas,
+							'completado' => $completado, 'habilitar siguiente' => $habilitar_siguiente
+				);
+			print_t($info);
+
 		?>
 		
                         
