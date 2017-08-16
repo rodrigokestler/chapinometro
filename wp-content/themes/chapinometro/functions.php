@@ -316,3 +316,16 @@ function get_preguntas(){
 die();
 }
 add_action('wp_ajax_nopriv_get_preguntas','get_preguntas');
+function get_user_vidas(){
+	$user = check_user();
+	if($user == null){
+		die(json_encode(array('msj_error'=>'usuario null')));
+	}else{
+		if($_POST['tipo']=='reset'){
+			update_user_meta($user->ID,'vidas',5);
+		}
+		$vidas = get_user_meta($user->ID,'vidas',TRUE);
+		die(json_encode(array('success'=>'1','vidas'=>$vidas)));
+	}
+}
+add_action('wp_ajax_nopriv_get_user_vidas','get_user_vidas');
