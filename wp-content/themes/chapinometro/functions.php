@@ -185,6 +185,7 @@ function get_niveles(){
 				$texto = '0/10';
 			}else if($habilitar_siguiente == false){
 				$class = "nivel_bloqueado";
+				$texto = "";
 			}
 		}
 		/*
