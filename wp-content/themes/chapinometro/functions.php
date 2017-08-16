@@ -217,6 +217,7 @@ function get_niveles(){
 		if($contador==0){ ?>
 			<tr style="height:110px;">
 		<?php }
+			/*
 			if($user->ID == 1){
 				$hs = $habilitar_siguiente ? '1' : '0';
 				$info = array('id nivel'=>$nivel->ID,'preguntas acertadas'=>$preguntas_acertadas,
@@ -224,7 +225,7 @@ function get_niveles(){
 					);
 				print_t($info);
 			}
-			
+			*/
 
 		?>
 		
