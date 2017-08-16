@@ -256,6 +256,7 @@ function get_niveles(){
 add_action('wp_ajax_nopriv_get_niveles','get_niveles');
 
 function get_preguntas(){
+	$user = check_user();
 	$id_nivel = $_POST['id_nivel'];
 	$args = array(
 		'posts_per_page'   => 10,
