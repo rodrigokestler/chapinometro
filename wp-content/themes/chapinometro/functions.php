@@ -86,7 +86,7 @@ function register_user(){
         $nombre = $_POST['user_name'];
         wp_update_user( array( 'ID' => $userid, 'display_name' => $nombre ) );
         update_user_meta($userid,'vidas',5);
-        die(json_encode(array('success'=>'1')));
+        die(json_encode(array('success'=>'1','ID'=>$userid)));
             
     } else {
         die(json_encode(array('msj_error'=>"El correo ingresado ya existe, intente de nuevo")));
