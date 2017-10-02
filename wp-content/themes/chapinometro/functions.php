@@ -78,6 +78,10 @@ function login(){
 }
 
 add_action('wp_ajax_nopriv_login','login');
+function login_ios(){
+
+}
+add_action('wp_ajax_nopriv_login_ios');
 
 function register_user(){
     $user_id = username_exists( $_POST['user_email'] );
@@ -93,6 +97,21 @@ function register_user(){
     }
 }
 add_action('wp_ajax_nopriv_register_user','register_user');
+
+function register_user_ios(){
+	$user_id = username_exists( $_POST['user_email'] );
+    if ( !$user_id and email_exists($_POST['user_email']) == false ) {
+        $userid = wp_create_user( $_POST['user_email'], $_POST['user_pass1'], $_POST['user_email'] );
+        $nombre = $_POST['user_name'];
+        wp_update_user( array( 'ID' => $userid, 'display_name' => $nombre ) );
+        update_user_meta($userid,'vidas',5);
+        die(json_encode(array('success'=>'1','ID'=>$userid)));
+            
+    } else {
+        die(json_encode(array('msj_error'=>"El correo ingresado ya existe, intente de nuevo")));
+    }
+}
+add_action('wp_ajax_nopriv_register_user_ios');
 
 function fb_login(){
 	//user_email
@@ -148,6 +167,85 @@ function print_t($f){
     print_r($f);
     echo "</pre>";
 }
+function get_niveles_destacados(){
+	$user = check_user();
+	$args = array(
+		'posts_per_page'   => -1,
+		'offset'           => 0,
+		'orderby'          => 'meta_value_num',
+		'meta_key'		   => 'prioridad',
+		'order'            => 'ASC',
+		'post_type'        => 'nivel_destacado',
+		'post_status'      => 'publish',
+	);
+	$posts_array = get_posts($args);
+	$contador=0;
+	?>
+	<table style="width:100%;text-align:center;">
+	<?php
+	$habilitar_siguiente = false;
+	foreach($posts_array as $nivel){
+		
+		$preguntas_acertadas = get_user_meta($user->ID,$nivel->ID.'preguntas_acertadas',TRUE);
+		$numero_nivel = get_post_meta($nivel->ID,'numero_nivel',TRUE);
+		$class="nivel_juego";
+		//$completado = get_user_meta($user->ID,'nivel-'.$nivel->ID,TRUE);
+		$imagen = get_post_meta($nivel->ID,'icono',TRUE);
+		$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
+		//$url_background="";
+		/*
+		if($completado == 'completado'){
+			$habilitar_siguiente = true;
+			$texto = $preguntas_acertadas.'/10';
+			$class="nivel_juego";
+			$imagen = get_post_meta($nivel->ID,'icono',TRUE);
+			$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
+		}else{
+
+			if($numero_nivel == '1' || $habilitar_siguiente == true){
+				$class="nivel_juego";
+				$imagen = get_post_meta($nivel->ID,'icono',TRUE);
+				$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
+				$texto = $preguntas_acertadas != '' ? $preguntas_acertadas.'/10' : '0/10';
+				$habilitar_siguiente = false;
+			}else if($habilitar_siguiente == false){
+				$class = "nivel_bloqueado";
+				$texto = "";
+			}
+		}*/
+		
+		if($contador==0){ ?>
+			<tr style="height:110px;">
+		<?php }
+			
+		?>
+		
+                        
+                            <td>
+                                <button data-nivelid="<?php echo $nivel->ID; ?>" style="<?php echo $url_background; ?>" class="nivelBtn <?php echo $class;?>">
+                                	<div class="texto_niveles font-morado">
+                                		<?php  echo $texto; ?>
+                                	</div>
+                                </button>
+                            </td>
+                       
+         
+        <?php
+        	
+        	$contador++;
+        if($contador==3){ ?>
+        	 </tr>
+        <?php 
+          	 $contador=0;
+    	}
+	}
+	?>
+	</table>
+	<?php
+	die();
+}
+add_action('wp_ajax_nopriv_get_niveles_destacados','get_niveles_destacados');
+
 function get_niveles(){
 	$user = check_user();
 	$args = array(
