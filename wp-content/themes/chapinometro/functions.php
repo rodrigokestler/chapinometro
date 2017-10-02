@@ -192,6 +192,7 @@ function get_niveles_destacados(){
 		//$completado = get_user_meta($user->ID,'nivel-'.$nivel->ID,TRUE);
 		$imagen = get_post_meta($nivel->ID,'icono',TRUE);
 		$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
+		$texto = $preguntas_acertadas != '' ? $preguntas_acertadas.'/10' : '0/10';
 		//$url_background="";
 		/*
 		if($completado == 'completado'){
