@@ -245,6 +245,7 @@ function get_niveles(){
 		$preguntas_acertadas = get_user_meta($user->ID,$nivel->ID.'preguntas_acertadas',TRUE);
 		$numero_nivel = get_post_meta($nivel->ID,'numero_nivel',TRUE);
 		$completado = get_user_meta($user->ID,'nivel-'.$nivel->ID,TRUE);
+		//update_user_meta($user->ID,'nivel-'.$id_nivel,'completado');
 		$url_background="";
 		if($completado == 'completado'){
 			$habilitar_siguiente = true;
@@ -252,9 +253,11 @@ function get_niveles(){
 			$class="nivel_juego";
 			$imagen = get_post_meta($nivel->ID,'icono',TRUE);
 			$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
+			$entro = 'entro if completado';
 		}else{
 
 			if($numero_nivel == '1' || $habilitar_siguiente == true){
+				$entro = 'entro nivel == 1 o habilitar siguiente == true';
 				$class="nivel_juego";
 				$imagen = get_post_meta($nivel->ID,'icono',TRUE);
 				$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
@@ -263,6 +266,7 @@ function get_niveles(){
 			}else if($habilitar_siguiente == false){
 				$class = "nivel_bloqueado";
 				$texto = "";
+				$entro = 'entro if habilitar siguiente == false';
 			}
 		}
 		
@@ -279,8 +283,9 @@ function get_niveles(){
                             		if( $user->ID == 9 || $user->ID == 13){
                             			$ambiente = ["preguntas_acertadas" => $preguntas_acertadas,
                             						 "numero_nivel"		   => $numero_nivel,
-                            						 "completado"		   => $numero_nivel,
-                            						 "nivel_id"			   => $nivel->ID
+                            						 "completado"		   => $completado,
+                            						 "nivel_id"			   => $nivel->ID,
+                            						 "entro"			   => $entro
                             						];
                             			echo '<pre>';
                             			var_dump($ambiente);
