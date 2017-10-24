@@ -281,7 +281,7 @@ function get_niveles(){
                             						 "numero_nivel"		   => $numero_nivel,
                             						 "completado"		   => $numero_nivel,
                             						 "nivel_id"			   => $nivel->ID
-                            						]
+                            						];
                             			echo '<pre>';
                             			var_dump($ambiente);
                             			echo '</pre>';
