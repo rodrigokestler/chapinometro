@@ -6,10 +6,7 @@
  *
  * @since Twenty Fifteen 1.0
  */
-function chapinometro_scripts() {
-	
-}
-add_action( 'wp_enqueue_scripts', 'chapinometro_scripts' );
+
 function pregunta_columns( $columns ) {
 
 	$columns['nivel'] = 'Nivel';
@@ -189,31 +186,10 @@ function get_niveles_destacados(){
 		$preguntas_acertadas = get_user_meta($user->ID,$nivel->ID.'preguntas_acertadas',TRUE);
 		$numero_nivel = get_post_meta($nivel->ID,'numero_nivel',TRUE);
 		$class="nivel_juego";
-		//$completado = get_user_meta($user->ID,'nivel-'.$nivel->ID,TRUE);
 		$imagen = get_post_meta($nivel->ID,'icono',TRUE);
 		$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
 		$texto = $preguntas_acertadas != '' ? $preguntas_acertadas.'/10' : '0/10';
-		//$url_background="";
-		/*
-		if($completado == 'completado'){
-			$habilitar_siguiente = true;
-			$texto = $preguntas_acertadas.'/10';
-			$class="nivel_juego";
-			$imagen = get_post_meta($nivel->ID,'icono',TRUE);
-			$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
-		}else{
-
-			if($numero_nivel == '1' || $habilitar_siguiente == true){
-				$class="nivel_juego";
-				$imagen = get_post_meta($nivel->ID,'icono',TRUE);
-				$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
-				$texto = $preguntas_acertadas != '' ? $preguntas_acertadas.'/10' : '0/10';
-				$habilitar_siguiente = false;
-			}else if($habilitar_siguiente == false){
-				$class = "nivel_bloqueado";
-				$texto = "";
-			}
-		}*/
+		
 		
 		if($contador==0){ ?>
 			<tr style="height:110px;">
@@ -289,47 +265,28 @@ function get_niveles(){
 				$texto = "";
 			}
 		}
-		/*
-		if($preguntas_acertadas==''){
-
-			$texto = '';
-			if($numero_nivel !='1' && $habilitar_siguiente==false ){
-				$class = "nivel_bloqueado";
-			}else{
-				$class="nivel_juego";
-				$imagen = get_post_meta($nivel->ID,'icono',TRUE);
-				$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
-				$texto = '0/10';
-			}
-			$habilitar_siguiente = false;
-		}else{
-			if($completado == 'completado'){
-				$habilitar_siguiente = true;
-			}
-			
-			$texto = $preguntas_acertadas.'/10';
-			$class="nivel_juego";
-			$imagen = get_post_meta($nivel->ID,'icono',TRUE);
-			$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
-		}
-		*/
+		
 		if($contador==0){ ?>
 			<tr style="height:110px;">
 		<?php }
-			/*
-			if($user->ID == 13){
-				$hs = $habilitar_siguiente ? '1' : '0';
-				$info = array('id nivel'=>$nivel->ID,'preguntas acertadas'=>$preguntas_acertadas,
-								'completado' => $completado, 'habilitar siguiente' => $hs
-					);
-				print_t($info);
-			}
-			*/
+			
 
 		?>
 		
                         
                             <td>
+                            	<?php
+                            		if( $user->ID == 9 || $user->ID == 13){
+                            			$ambiente = ["preguntas_acertadas" => $preguntas_acertadas,
+                            						 "numero_nivel"		   => $numero_nivel,
+                            						 "completado"		   => $numero_nivel,
+                            						 "nivel_id"			   => $nivel->ID
+                            						]
+                            			echo '<pre>';
+                            			var_dump($ambiente);
+                            			echo '</pre>';
+                            		}
+                            	?>
                                 <button data-nivelid="<?php echo $nivel->ID; ?>" style="<?php echo $url_background; ?>" class="nivelBtn <?php echo $class;?>">
                                 	<div class="texto_niveles font-morado">
                                 		<?php  echo $texto; ?>
