@@ -280,7 +280,8 @@ function get_niveles(){
                         
                             <td>
                             	<?php
-                            		if( $user->ID == 9 || $user->ID == 13){
+                            		//if( $user->ID == 9 || $user->ID == 13){
+                            	if( $user->ID == 0 ){
                             			$ambiente = ["preguntas_acertadas" => $preguntas_acertadas,
                             						 "numero_nivel"		   => $numero_nivel,
                             						 "completado"		   => $completado,
