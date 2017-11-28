@@ -264,6 +264,9 @@ function get_niveles_destacados_con_splash(){
                                 </button>
                                 <div class="splashDestacado">
                                 	<img src="<?php echo wp_get_attachment_url(get_post_meta($nivel->ID,'splash',TRUE));?>" >
+                                	<div class="comenzarJuegoBtnContainer">
+                                	<button onclick="(function(e) { e.preventDefault(); e.stopPropagation(); })(event);" class="comenzarJuegoBtn btn btn-lg btn-primary btn-block bg-celeste">COMENZAR</button>
+                                	</div>
                                 </div>
                             </td>
                        
