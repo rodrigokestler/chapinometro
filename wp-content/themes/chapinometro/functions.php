@@ -265,7 +265,7 @@ function get_niveles_destacados_con_splash(){
                                 <div class="splashDestacado">
                                 	<img src="<?php echo wp_get_attachment_url(get_post_meta($nivel->ID,'splash',TRUE));?>" >
                                 	<div class="comenzarJuegoBtnContainer">
-                                	<button onclick="(function(e) { e.preventDefault(); e.stopPropagation(); })(event);" class="comenzarJuegoBtn btn btn-lg btn-primary btn-block bg-celeste">COMENZAR</button>
+                                	<button onclick="(function(e) { e.preventDefault(); e.stopPropagation();juego.comenzarJuego(juego.sonido); })(event);" class="comenzarJuegoBtn btn btn-lg btn-primary btn-block bg-celeste">COMENZAR</button>
                                 	</div>
                                 </div>
                             </td>
@@ -460,6 +460,7 @@ function get_preguntas(){
 			        	juego.imagesLoaded++;
 				        if(juego.imagesLoaded == juego.imageCount){
 				            juego.comenzarJuego(juego.sonido);
+				            
 				        }
 			    	};
 				<?php
@@ -468,6 +469,7 @@ function get_preguntas(){
 		}else{
 			?>
 			juego.comenzarJuego(juego.sonido);
+			
 			<?php
 		}
 	?>
@@ -479,6 +481,106 @@ function get_preguntas(){
 die();
 }
 add_action('wp_ajax_nopriv_get_preguntas','get_preguntas');
+function get_preguntas_destacadas(){
+	$user = check_user();
+	$id_nivel = $_POST['id_nivel'];
+	$args = array(
+		'posts_per_page'   => 10,
+		'offset'           => 0,
+		'orderby'          => 'rand',
+		'post_type'        => 'pregunta',
+		'post_status'      => 'publish',
+		'meta_key'		   => 'nivel',
+		'meta_value'	   => $id_nivel
+	);
+	$posts_array = get_posts($args);
+	$tiempo = get_post_meta($id_nivel,'tiempo',TRUE);
+	$socialsharing = get_post_meta($id_nivel,'socialsharing',TRUE);
+	$imgSocial = wp_get_attachment_url($socialsharing);
+	$imagenes = 0;
+	$sources = [];
+	?>
+
+	<?php
+	foreach($posts_array as $pregunta){
+		
+		$categories = get_the_category($pregunta->ID);
+		if($categories[0]->name=='pregunta-texto'){
+
+		}else if($categories[0]->name=='pregunta-imagen'){
+			$imagenes++;
+			array_push($sources,wp_get_attachment_url(get_post_meta($pregunta->ID,'pregunta',TRUE)));
+		}
+		?>
+
+					<div class="pregunta" data-no="<?php echo $contador;?>" style="display:none;d">
+						<div class="flecha-arriba"></div>
+                    	<div class="flecha-abajo"></div>
+                        <div class="preguntaSection">
+                        	<?php 
+                        		if($categories[0]->name == 'pregunta-texto'){ ?>
+                        			<div class="preguntaTexto"><?php echo $pregunta->pregunta;?></div>
+                        	<?php }else{ ?>
+                        			<div class="preguntaImagen"><img src="<?php echo wp_get_attachment_url(get_post_meta($pregunta->ID,'pregunta',TRUE));?>" ></div>
+                        		<?php } ?>
+                        
+                            
+                            
+                        </div>
+                        <div class="respuestas">
+                            <button class="respuestaTexto" data-opcion="respuesta1" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta1; echo $pregunta->respuesta_correcta == 'respuesta1' && ($user->ID == 13 || $user->ID == 9) ? ' <span style="font-weight:bold">correcta</span>' : '';?>
+                            </button>
+                            <button class="respuestaTexto" data-opcion="respuesta2" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta2; echo $pregunta->respuesta_correcta == 'respuesta2' && ($user->ID == 13 || $user->ID == 9) ? ' <span style="font-weight:bold">correcta</span>' : ''; ?>
+                            </button>
+                            <button class="respuestaTexto" data-opcion="respuesta3" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta3; echo $pregunta->respuesta_correcta == 'respuesta3' && ($user->ID == 13 || $user->ID == 9) ? ' <span style="font-weight:bold">correcta</span>' : ''; ?>
+                            </button>
+                            <button class="respuestaTexto" data-opcion="respuesta4" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta4; echo $pregunta->respuesta_correcta == 'respuesta4' && ($user->ID == 13 || $user->ID == 9) ? ' <span style="font-weight:bold">correcta</span>' : '';?>
+                            </button>
+							<button class="respuestaTexto" data-opcion="respuesta5" data-correcta="<?php echo $pregunta->respuesta_correcta;?>"><?php echo $pregunta->respuesta5; echo $pregunta->respuesta_correcta == 'respuesta5' && ($user->ID == 13 || $user->ID == 9) ? ' <span style="font-weight:bold">correcta</span>' : '';?>
+                            </button>
+                        </div>
+                    </div>
+
+	<?php }
+
+	?>
+	<script>
+	juego.nombreNivel.html("<?php echo get_post_meta($id_nivel,'nombre',TRUE);?>");
+	juego.tiempo_restante = <?php echo $tiempo;?>;
+	$('#socialSharingBtn').data('link',"<?php echo $imgSocial;?>");
+	juego.imageCount = <?php echo $imagenes ?>;
+	<?php 
+		if($imagenes >0){
+			for($i =0 ; $i < $imagenes; $i++){
+				?>
+					console.log("new image src <?php echo $sources[$i];?>");
+					juego.images[<?php echo $i;?>] = new Image();
+					juego.images[<?php echo $i;?>].src = '<?php echo $sources[$i];?>';
+					juego.images[<?php echo $i;?>].onload = function(){
+						console.log('image loaded');
+			        	juego.imagesLoaded++;
+				        if(juego.imagesLoaded == juego.imageCount){
+				            
+				            cortina.hide();
+				        }
+			    	};
+				<?php
+			}
+		
+		}else{
+			?>
+			cortina.hide();
+			<?php
+		}
+	?>
+	
+	
+	</script>
+	<?php
+
+die();
+}
+add_action('wp_ajax_nopriv_get_preguntas_destacadas','get_preguntas_destacadas');
 function get_user_vidas(){
 	$user = check_user();
 	if($user == null){
