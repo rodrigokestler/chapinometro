@@ -257,7 +257,7 @@ function get_niveles_destacados_con_splash(){
 		
                         
                             <td>
-                                <button data-nivelid="<?php echo $nivel->ID; ?>" style="<?php echo $url_background; ?>" class="nivelBtn <?php echo $class;?>">
+                                <button data-nivelid="<?php echo $nivel->ID; ?>" style="<?php echo $url_background; ?>" class="nivelBtnDestacado <?php echo $class;?>">
                                 	<div class="texto_niveles font-morado">
                                 		<?php  echo $texto; ?>
                                 	</div>
