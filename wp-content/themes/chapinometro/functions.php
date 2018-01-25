@@ -380,6 +380,133 @@ function get_niveles(){
 }
 add_action('wp_ajax_nopriv_get_niveles','get_niveles');
 
+function get_chapiniveles_con_splash(){
+	$user = check_user();
+	$args = array(
+		'posts_per_page'   => -1,
+		'offset'           => 0,
+		'orderby'          => 'meta_value_num',
+		'meta_key'		   => 'numero_nivel',
+		'order'            => 'ASC',
+		'post_type'        => 'nivel',
+		'post_status'      => 'publish',
+	);
+	$posts_array = get_posts($args);
+	$contador=0;
+	?>
+	<table style="width:100%;text-align:center;">
+	<?php
+	$habilitar_siguiente = false;
+	foreach($posts_array as $nivel){
+		
+		$preguntas_acertadas = get_user_meta($user->ID,$nivel->ID.'preguntas_acertadas',TRUE);
+		$numero_nivel = get_post_meta($nivel->ID,'numero_nivel',TRUE);
+		$completado = get_user_meta($user->ID,'nivel-'.$nivel->ID,TRUE);
+		//update_user_meta($user->ID,'nivel-'.$id_nivel,'completado');
+		$url_background="";
+		if($completado == 'completado'){
+			$habilitar_siguiente = true;
+			$texto = $preguntas_acertadas.'/10';
+			$class="nivel_juego";
+			$imagen = get_post_meta($nivel->ID,'icono',TRUE);
+			$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
+			$entro = 'entro if completado';
+		}else{
+
+			if($numero_nivel == '1' || $habilitar_siguiente == true){
+				$entro = 'entro nivel == 1 o habilitar siguiente == true';
+				$class="nivel_juego";
+				$imagen = get_post_meta($nivel->ID,'icono',TRUE);
+				$url_background='background-image:url('.wp_get_attachment_url($imagen).');';
+				$texto = $preguntas_acertadas != '' ? $preguntas_acertadas.'/10' : '0/10';
+				$habilitar_siguiente = false;
+			}else if($habilitar_siguiente == false){
+				$class = "nivel_bloqueado";
+				$texto = "";
+				$entro = 'entro if habilitar siguiente == false';
+			}
+		}
+		
+		if($contador==0){ ?>
+			<tr style="height:110px;">
+		<?php }
+			
+
+		?>
+		
+                        
+                            <td>
+                            	<?php
+                            		//if( $user->ID == 9 || $user->ID == 13){
+                            	if( $user->ID == 0 ){
+                            			$ambiente = ["preguntas_acertadas" => $preguntas_acertadas,
+                            						 "numero_nivel"		   => $numero_nivel,
+                            						 "completado"		   => $completado,
+                            						 "nivel_id"			   => $nivel->ID,
+                            						 "entro"			   => $entro
+                            						];
+                            			echo '<pre>';
+                            			var_dump($ambiente);
+                            			echo '</pre>';
+                            		}
+                            	?>
+                                <button data-nivelid="<?php echo $nivel->ID; ?>" style="<?php echo $url_background; ?>" class="nivelBtn <?php echo $class;?>">
+                                	<div class="texto_niveles font-morado">
+                                		<?php  echo $texto; ?>
+                                	</div>
+                                </button>
+                            </td>
+                       
+         
+        <?php
+        	
+        	$contador++;
+        if($contador==3){ ?>
+        	 </tr>
+        <?php 
+          	 $contador=0;
+    	}
+	}
+	?>
+	</table>
+	<?php
+	get_splashes_chapiniveles();
+	die();
+}
+add_action('wp_ajax_nopriv_get_chapiniveles_con_splash','get_chapiniveles_con_splash');
+
+function get_splashes_chapiniveles(){
+
+	$user = check_user();
+	$args = array(
+		'posts_per_page'   => -1,
+		'offset'           => 0,
+		'orderby'          => 'meta_value_num',
+		'meta_key'		   => 'prioridad',
+		'order'            => 'ASC',
+		'post_type'        => 'splash_chapinivel',
+		'post_status'      => 'publish',
+	);
+	$posts_array = get_posts($args);
+	?>
+	<div style="display:none">
+	<?php
+	
+	foreach($posts_array as $splash){
+		?>
+		<div class="splashChapinivel">
+            <img src="<?php echo wp_get_attachment_url(get_post_meta($nivel->ID,'imagen',TRUE));?>" >
+            <div class="comenzarJuegoBtnContainer">
+            	<button onclick="(function(e) { e.preventDefault(); e.stopPropagation();juego.comenzarJuego(juego.sonido); })(event);" class="comenzarJuegoBtn btn btn-lg btn-primary btn-block bg-celeste">COMENZAR</button>
+            </div>
+        </div>
+        <?php
+	}
+	?>
+	</div>
+	<?php
+}
+
 function get_preguntas(){
 	$user = check_user();
 	$id_nivel = $_POST['id_nivel'];
