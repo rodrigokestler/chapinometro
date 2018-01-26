@@ -489,13 +489,14 @@ function get_splashes_chapiniveles(){
 	);
 	$posts_array = get_posts($args);
 	?>
-	
+
 	<?php
 	
 	foreach($posts_array as $splash){
 		?>
 		<div class="splashChapinivel">
             <img src="<?php echo wp_get_attachment_url(get_post_meta($splash->ID,'imagen',TRUE));?>" >
+
             <div class="comenzarJuegoBtnContainer">
             	<button onclick="(function(e) { e.preventDefault(); e.stopPropagation();juego.comenzarJuego(juego.sonido); })(event);" class="comenzarJuegoBtn btn btn-lg btn-primary btn-block bg-celeste">COMENZAR</button>
             </div>
@@ -503,7 +504,7 @@ function get_splashes_chapiniveles(){
         <?php
 	}
 	?>
-	
+
 	<?php
 }
 
